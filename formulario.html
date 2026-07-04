@@ -1,62 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Únete a la campaña</title>
-
+    <title>Donar a la causa</title>
     <link rel="stylesheet" href="style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+    
+    <style>
+        #contenedor-tarjeta {
+            display: none; /* Oculto por defecto */
+            margin-top: 15px;
+        }
+        /* Estilo visual para saber qué método está seleccionado */
+        .metodo.activo {
+            border: 2px solid #4CAF50;
+            background-color: #e8f5e9;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="formulario-container">
+    <div class="formulario-container">
 
-    <h1>🐾 Únete a nuestra campaña</h1>
+        <h1>🐰💚 Dona para proteger a las mascotas</h1>
+        <p>Tu aporte ayudará a brindar alimento, atención veterinaria y refugio a conejos, loros y otras mascotas rescatadas.</p>
 
-    <p>
-        Completa el siguiente formulario para demostrar cómo puede verse un registro en una campaña educativa.
-    </p>
+        <form action="resultado.html">
 
-    <form action="resultado.html">
+            <label>Nombre completo</label>
+            <input type="text" placeholder="Ingrese su nombre completo" required>
 
-        <label>Nombre completo</label>
-        <input type="text" placeholder="Ingrese su nombre" required>
+            <label>Correo electrónico</label>
+            <input type="email" placeholder="ejemplo@gmail.com" required>
 
-        <label>Edad</label>
-        <input type="number" min="1" max="120" placeholder="Ingrese su edad" required>
+            <label>Teléfono</label>
+            <input type="tel" placeholder="999999999" required>
 
-        <label>Teléfono</label>
-        <input type="tel" placeholder="999999999" required>
+            <label>Ciudad</label>
+            <input type="text" placeholder="Ingrese su ciudad" required>
 
-        <label>Correo electrónico</label>
-        <input type="email" placeholder="correo@ejemplo.com" required>
+            <label>Monto de apoyo</label>
+            <select required>
+                <option value="">Seleccione un monto</option>
+                <option>S/ 10</option>
+                <option>S/ 20</option>
+                <option>S/ 50</option>
+                <option>S/ 100</option>
+                <option>Otro</option>
+            </select>
+            <br><br>
 
-        <label>Dirección</label>
-        <input type="text" placeholder="Ingrese su dirección" required>
+            <label>Método de apoyo</label>
+            <div class="metodos">
+                <div class="metodo" id="btn-tarjeta">💳 Tarjeta</div>
+                <div class="metodo" id="btn-yape">📱 Yape</div>
+                <div class="metodo" id="btn-plin">💜 Plin</div>
+                <div class="metodo" id="btn-transf">🏦 Transferencia</div>
+            </div>
+            
+            <br>
 
-        <button type="submit" class="botonGrande">
-            Enviar información
-        </button>
+            <div id="contenedor-tarjeta" class="tarjeta-demo">
+                <h3>💳 Ingrese los datos de su tarjeta</h3>
+                
+                <label>Número de Tarjeta</label>
+                <input type="text" placeholder="0000 0000 0000 0000" maxlength="19">
+                
+                <label>Titular de la Tarjeta</label>
+                <input type="text" placeholder="Nombre que aparece en la tarjeta">
+                
+                <div style="display: flex; gap: 15px;">
+                    <div style="flex: 1;">
+                        <label>Vencimiento</label>
+                        <input type="text" placeholder="MM/AA" maxlength="5">
+                    </div>
+                    <div style="flex: 1;">
+                        <label>CVV</label>
+                        <input type="password" placeholder="***" maxlength="4">
+                    </div>
+                </div>
+                
+            </div>
+            <br>
 
-    </form>
+            <label>
+                <input type="checkbox" required>
+                Deseo apoyar esta campaña solidaria.
+            </label>
+            <br><br>
 
-    <br>
+            <button class="botonGrande">
+                💚 CONTINUAR
+            </button>
 
-    <a href="index.html" class="boton">
-        ← Volver al inicio
-    </a>
+        </form>
 
-</div>
+        <br>
+        <a href="index.html" class="boton">⬅ Volver al inicio</a>
+
+    </div>
+
+    <script>
+        // Seleccionamos todos los botones de método y el contenedor de la tarjeta
+        const botonesMetodo = document.querySelectorAll('.metodo');
+        const contenedorTarjeta = document.getElementById('contenedor-tarjeta');
+
+        // Le agregamos la función de clic a cada botón
+        botonesMetodo.forEach(boton => {
+            boton.addEventListener('click', function() {
+                
+                // 1. Quitar la clase 'activo' de todos los botones
+                botonesMetodo.forEach(b => b.classList.remove('activo'));
+                
+                // 2. Poner la clase 'activo' solo al botón que hicimos clic
+                this.classList.add('activo');
+
+                // 3. Evaluar si hicimos clic en "Tarjeta"
+                if (this.id === 'btn-tarjeta') {
+                    // Si es tarjeta, mostramos el div
+                    contenedorTarjeta.style.display = 'block';
+                } else {
+                    // Si es cualquier otro método, lo ocultamos
+                    contenedorTarjeta.style.display = 'none';
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
